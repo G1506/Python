@@ -46,7 +46,7 @@ class LinkedList:
             print(f"{key} deleted from the list")
             return
 
-        # Case 42: Deleting a node other than the head
+        # Case 2: Deleting a node other than the head
         prev = None
         while current is not None and current.data != key:
             prev = current
@@ -61,6 +61,26 @@ class LinkedList:
         prev.next = current.next
         current = None
         print(f"{key} deleted from the list")
+
+    def modify(self, pos, new_data):
+        if pos <= 0:
+            print("Position must be >= 1.")
+            return
+
+        current = self.head
+        count = 1
+
+        # Traverse to the node at the target position
+        while current is not None and count < pos:
+            current = current.next
+            count += 1
+
+        if current is None:
+            print("Position out of bounds.")
+            return
+
+        current.data = new_data
+        print(f"Node at position {pos} modified to {new_data}")
 
 
     def display(self):
@@ -82,7 +102,8 @@ while True:
     print("1. Insert at Position")
     print("2. Display")
     print("3. Delete by Value")
-    print("4. Exit")
+    print("4. Modify at Position")
+    print("5. Exit")
 
 
     choice = input("Enter your choice: ")
@@ -103,7 +124,14 @@ while True:
         except ValueError:
             print("Please enter a valid integer value.")
     elif choice == '4':
+        try:
+            pos = int(input("Enter the position to modify: "))
+            new_data = int(input("Enter the new value: "))
+            ll.modify(pos, new_data)
+        except ValueError:
+            print("Please enter valid integer values.")
+    elif choice == '5':
         print("Exit the operation...")
         break
     else:
-        print("Invalid choice. Please pick 1, 2, 3 or 4.")
+        print("Invalid choice. Please pick 1, 2, 3, 4 or 5.")
